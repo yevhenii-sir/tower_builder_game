@@ -50,6 +50,7 @@ namespace TowerBuilder
                     GetParent().AddChild(_currentBox);
                     _currentBox.Position = pos;
                     _currentBox.Rotation = angle;
+                    _currentBox.Scale = new Vector2(1, 1);
                     _currentBox = null;
                 
                     _timerSpawnBox.Start();
