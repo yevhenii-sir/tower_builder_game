@@ -66,3 +66,4 @@ visible = false
 points = PoolVector2Array( 0, 0, 0, 0 )
 
 [node name="Rope" parent="." instance=ExtResource( 9 )]
+rotation = 0.523599
