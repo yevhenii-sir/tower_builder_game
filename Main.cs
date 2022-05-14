@@ -13,10 +13,12 @@ public class Main : Node2D
 	private float _tTimeShiftX, _tTimeShiftY;
 	private float _amplitudeX = 100f;
 	private float _amplitudeY = 25f;
-	private float _incrementX = Mathf.Deg2Rad(_deg);
-	private float _incrementY = Mathf.Deg2Rad(_deg) / 2.5f;
+	private readonly float _incrementX = Mathf.Deg2Rad(_deg);
+	private readonly float _incrementY = Mathf.Deg2Rad(_deg) / 2.5f;
 
 	private Vector2 _topCenterPoint;
+
+	private int _score = 0;
 
 	public override void _Ready()
 	{
@@ -33,19 +35,7 @@ public class Main : Node2D
 			GetTree().ReloadCurrentScene();
 		
 		_topCenterPoint = new Vector2(_windowSize.x / 2, -GetGlobalTransformWithCanvas().origin.y - 80);
-
-		// if (_currentBlock != null)
-		// {
-		//     if (_currentBlock.GetCollidingBodies().Count > 0)
-		//     {
-		//         if (_nodeNameCounter > 1 && !(bool) _currentBlock.Get("SkipBlock"))
-		//         {
-		//             _camera2D.Position = new Vector2(_camera2D.Position.x, _camera2D.Position.y - 196.0f);
-		//             _currentBlock.Set("SkipBlock", true);
-		//         }
-		//     }
-		// }
-
+		
 		FollowRopeToPoint(_topCenterPoint + new Vector2(_amplitudeX * Mathf.Sin(_tTimeShiftX), 
 														_amplitudeY * Mathf.Sin(_tTimeShiftY) + 300f));
 

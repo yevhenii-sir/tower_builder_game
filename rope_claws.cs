@@ -19,20 +19,20 @@ namespace TowerBuilder
 	
 		private readonly PackedScene _boxScene = (PackedScene)GD.Load("res://block.tscn");
 		private int _nodeNameCounter = 0;
+		private bool _boxFly = false;
 		private Node2D _currentBox;
 
-		private Timer _timerSpawnBox;
-
+		private Camera2D _camera2D;
 		public override void _Ready()
 		{
 			_leftClaw = GetNode<Sprite>("claw_left");
 			_rightClaw = GetNode<Sprite>("claw_right");
-			_timerSpawnBox = GetNode<Timer>("timer_box_spawn");
+			_camera2D = GetParent().GetNode<Camera2D>("Camera");
 
-			if (_leftClaw != null && _rightClaw != null && _timerSpawnBox != null)
+			if (_leftClaw != null && _rightClaw != null && _camera2D != null)
 			{
 				_handlerMoveClaws = MoveClawsDown;
-				_on_timer_box_spawn_timeout();
+				SpawnBox();
 			}
 			else 
 				GetTree().ReloadCurrentScene();
@@ -42,26 +42,55 @@ namespace TowerBuilder
 		{
 			if (_currentBox != null)
 			{
-				if (Input.IsActionJustPressed("mouse_left_pressed"))
+				if (!_boxFly)
 				{
-					var currentBoxRigidBody2D = _currentBox.GetNode<RigidBody2D>("RigidBody2D");
-					currentBoxRigidBody2D.Mode = RigidBody2D.ModeEnum.Rigid;
-				
-					var pos = _currentBox.GlobalPosition;
-					var angle = _currentBox.GlobalRotation;
-					RemoveChild(_currentBox);
-					GetParent().AddChild(_currentBox);
-					_currentBox.Position = pos;
-					_currentBox.Rotation = angle;
-					_currentBox.Scale = new Vector2(1, 1);
-					_currentBox = null;
-				
-					_timerSpawnBox.Start();
-				
-					ClearAllDelegates();
-					_handlerMoveClaws = MoveClawsUp;
+					if (Input.IsActionJustPressed("mouse_left_pressed"))
+					{
+						var currentBoxRigidBody2D = _currentBox.GetNode<RigidBody2D>("RigidBody2D");
+						currentBoxRigidBody2D.Mode = RigidBody2D.ModeEnum.Rigid;
+
+						var pos = _currentBox.GlobalPosition;
+						var angle = _currentBox.GlobalRotation;
+						RemoveChild(_currentBox);
+						GetParent().AddChild(_currentBox);
+						_currentBox.Position = pos;
+						_currentBox.Rotation = angle;
+						_currentBox.Scale = new Vector2(1, 1);
+						_boxFly = true;
+						
+						_currentBox.Set("_isStabilization", true);
+
+						ClearAllDelegates();
+						_handlerMoveClaws = MoveClawsUp;
+					}
+					else TrackPositionBox(_currentBox);
 				}
-				else TrackPositionBox(_currentBox);
+				else
+				{
+					if (_currentBox.GetNode<RigidBody2D>("RigidBody2D").GetCollidingBodies().Count > 0)
+					{
+						var tempScore = (int) GetParent().Get("_score");
+						var rigidBodyBox = _currentBox.GetNode<RigidBody2D>("RigidBody2D");
+
+						if (tempScore > 0)
+						{
+							_camera2D.Position = new Vector2(_camera2D.Position.x,
+								(rigidBodyBox.GlobalTransform.origin.y) -
+								_camera2D.GetViewportRect().Size.y + 200);
+						}
+
+
+						rigidBodyBox.Set("SkipBlock", true);
+						_currentBox.Set("_isStabilization", false);
+						GetParent().Set("_score", tempScore + 1);
+
+						rigidBodyBox.ContactMonitor = false;
+						_boxFly = false;
+						_currentBox = null;
+						
+						SpawnBox();
+					}
+				}
 			}
 
 			_handlerMoveClaws?.Invoke();
@@ -78,7 +107,7 @@ namespace TowerBuilder
 			}
 #endif
 		}
-	
+
 		private void MoveClawsUp()
 		{
 			_leftClaw.Rotation = Mathf.LerpAngle(_leftClaw.Rotation, _finishRotationRad, _increaseValAngle);
@@ -108,11 +137,8 @@ namespace TowerBuilder
 		{
 			box.Position = _leftClaw.Position + new Vector2(0, 40);
 		}
-
-		/// <summary>
-		/// Спавн коробки в клещах по окончанию таймера
-		/// </summary>
-		public void _on_timer_box_spawn_timeout()
+		
+		public void SpawnBox()
 		{
 			Node box = _boxScene.Instance();
 			box.Name = "box_" + _nodeNameCounter;
