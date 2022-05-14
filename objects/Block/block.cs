@@ -23,8 +23,6 @@ public class block : Node2D
 
 			if (Math.Abs(scale - 1) < 0.01) _isShowing = false;
 		}
-		
-		//GD.Print(Name + " " + Rotation + " " + _rigidBody2D.Rotation);
 
 		if (_isStabilization)
 		{

@@ -7,8 +7,8 @@
 [ext_resource path="res://assets/background/Buildings_0.png" type="Texture" id=5]
 [ext_resource path="res://assets/background/Buildings_1.png" type="Texture" id=6]
 [ext_resource path="res://Main.cs" type="Script" id=7]
-[ext_resource path="res://Camera.cs" type="Script" id=8]
-[ext_resource path="res://Rope.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/Camera.cs" type="Script" id=8]
+[ext_resource path="res://objects/Rope/Rope.tscn" type="PackedScene" id=9]
 
 [sub_resource type="PhysicsMaterial" id=2]
 friction = 20.0

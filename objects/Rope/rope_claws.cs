@@ -17,7 +17,7 @@ namespace TowerBuilder
 		private delegate void MoveClaws();
 		private MoveClaws _handlerMoveClaws;
 	
-		private readonly PackedScene _boxScene = (PackedScene)GD.Load("res://block.tscn");
+		private readonly PackedScene _boxScene = (PackedScene)GD.Load("res://objects/Block/block.tscn");
 		private int _nodeNameCounter = 0;
 		private bool _boxFly = false;
 		private Node2D _currentBox;
