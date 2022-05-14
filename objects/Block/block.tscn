@@ -5,7 +5,7 @@
 [ext_resource path="res://objects/Block/block.cs" type="Script" id=3]
 
 [sub_resource type="PhysicsMaterial" id=2]
-friction = 20.0
+friction = 100.0
 rough = true
 absorbent = true
 
@@ -18,7 +18,7 @@ script = ExtResource( 3 )
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2( 0, 98 )
 physics_material_override = SubResource( 2 )
-gravity_scale = 15.0
+gravity_scale = 9.8
 continuous_cd = 2
 contacts_reported = 1
 contact_monitor = true

@@ -23,11 +23,17 @@ namespace TowerBuilder
 		private Node2D _currentBox;
 
 		private Camera2D _camera2D;
+		private Label _labelHeightCounter;
 		public override void _Ready()
 		{
 			_leftClaw = GetNode<Sprite>("claw_left");
 			_rightClaw = GetNode<Sprite>("claw_right");
 			_camera2D = GetParent().GetNode<Camera2D>("Camera");
+			_labelHeightCounter = GetParent()
+				.GetNode<Camera2D>("Camera")
+				.GetNode<CanvasLayer>("CanvasLayer")
+				.GetNode<Control>("Interface").GetNode<NinePatchRect>("TowerHeight")
+				.GetNode<Label>("CounterText");
 
 			if (_leftClaw != null && _rightClaw != null && _camera2D != null)
 			{
@@ -48,6 +54,7 @@ namespace TowerBuilder
 					{
 						var currentBoxRigidBody2D = _currentBox.GetNode<RigidBody2D>("RigidBody2D");
 						currentBoxRigidBody2D.Mode = RigidBody2D.ModeEnum.Rigid;
+						currentBoxRigidBody2D.GravityScale = 15;
 
 						var pos = _currentBox.GlobalPosition;
 						var angle = _currentBox.GlobalRotation;
@@ -83,6 +90,8 @@ namespace TowerBuilder
 						rigidBodyBox.Set("SkipBlock", true);
 						_currentBox.Set("_isStabilization", false);
 						GetParent().Set("_score", tempScore + 1);
+
+						_labelHeightCounter.Text = (tempScore + 1).ToString();
 
 						rigidBodyBox.ContactMonitor = false;
 						_boxFly = false;

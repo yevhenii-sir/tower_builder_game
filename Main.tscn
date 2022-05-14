@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/background/Fence.png" type="Texture" id=1]
 [ext_resource path="res://assets/background/Ground.png" type="Texture" id=2]
@@ -9,16 +9,16 @@
 [ext_resource path="res://Main.cs" type="Script" id=7]
 [ext_resource path="res://objects/Camera.cs" type="Script" id=8]
 [ext_resource path="res://objects/Rope/Rope.tscn" type="PackedScene" id=9]
+[ext_resource path="res://interface/Interface.tscn" type="PackedScene" id=10]
 
 [sub_resource type="PhysicsMaterial" id=2]
-friction = 20.0
-rough = true
+friction = 100.0
 absorbent = true
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 216, 16 )
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node2D"]
 script = ExtResource( 7 )
 
 [node name="background" type="Node2D" parent="."]
@@ -44,7 +44,7 @@ position = Vector2( 312, 914 )
 texture = ExtResource( 1 )
 
 [node name="foundament" type="StaticBody2D" parent="."]
-position = Vector2( 306, 969 )
+position = Vector2( 300, 969 )
 physics_material_override = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="foundament"]
@@ -61,8 +61,8 @@ smoothing_enabled = true
 smoothing_speed = 3.5
 script = ExtResource( 8 )
 
-[node name="Line2D" type="Line2D" parent="."]
-visible = false
-points = PoolVector2Array( 0, 0, 0, 0 )
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera"]
+
+[node name="Interface" parent="Camera/CanvasLayer" instance=ExtResource( 10 )]
 
 [node name="Rope" parent="." instance=ExtResource( 9 )]

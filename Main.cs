@@ -27,6 +27,12 @@ public class Main : Node2D
 		_ropeNode = GetNode<Node2D>("Rope");
 		_ropeSpriteSize = _ropeNode.GetNode<Sprite>("Sprite").Texture.GetSize();
 		_halfHeightRope = _ropeSpriteSize.y / 2;
+
+		StaticBody2D staticBody2D = GetNode<StaticBody2D>("foundament");
+		staticBody2D.Position = new Vector2(_windowSize.x / 2, staticBody2D.Position.y);
+		
+		Node2D background = GetNode<Node2D>("background");
+		background.Position = new Vector2((_windowSize.x / 2) - 300, background.Position.y);
 	}
 
 	public override void _Process(float delta)
