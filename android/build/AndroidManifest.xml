@@ -28,12 +28,16 @@
     <!-- If you want to add tags manually, do before it. -->
     <!-- WARNING: This should stay on a single line until the parsing code is improved. See GH-32414. -->
     <!-- TODO: Remove the 'requestLegacyExternalStorage' attribute when https://github.com/godotengine/godot/issues/38913 is resolved -->
-    <application android:label="@string/godot_project_name_string" android:allowBackup="false" android:isGame="true" android:hasFragileUserData="false" android:requestLegacyExternalStorage="false" tools:ignore="GoogleAppIndexingWarning" android:icon="@mipmap/icon" >
+    <application android:label="@string/godot_project_name_string" android:allowBackup="false" android:isGame="true" android:hasFragileUserData="false" android:requestLegacyExternalStorage="false" tools:ignore="GoogleAppIndexingWarning" android:icon="@mipmap/icon">
 
         <!-- Records the version of the Godot editor used for building -->
         <meta-data
             android:name="org.godotengine.editor.version"
             android:value="${godotEditorVersion}" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9890823123050904~8579232945"/>
 
         <!-- The following metadata values are replaced when Godot exports, modifying them here has no effect. -->
         <!-- Do these changes in the export preset. Adding new ones is fine. -->

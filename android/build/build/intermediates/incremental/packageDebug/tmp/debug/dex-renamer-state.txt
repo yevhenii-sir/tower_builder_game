@@ -1,0 +1,4 @@
+#Sun May 15 16:09:40 EEST 2022
+base.0=C\:\\Users\\Evgen\\tower_builder_game\\android\\build\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

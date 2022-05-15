@@ -24,6 +24,9 @@ namespace TowerBuilder
 
 		private Camera2D _camera2D;
 		private Label _labelHeightCounter;
+
+		private Vector2 _banner_dimension;
+		private bool _cameraMoved = true;
 		public override void _Ready()
 		{
 			_leftClaw = GetNode<Sprite>("claw_left");
@@ -32,7 +35,8 @@ namespace TowerBuilder
 			_labelHeightCounter = GetParent()
 				.GetNode<Camera2D>("Camera")
 				.GetNode<CanvasLayer>("CanvasLayer")
-				.GetNode<Control>("Interface").GetNode<NinePatchRect>("TowerHeight")
+				.GetNode<Control>("Interface")
+				.GetNode<NinePatchRect>("TowerHeight")
 				.GetNode<Label>("CounterText");
 
 			if (_leftClaw != null && _rightClaw != null && _camera2D != null)
@@ -46,6 +50,15 @@ namespace TowerBuilder
 	
 		public override void _Process(float delta)
 		{
+			if (_banner_dimension != null)
+			{
+				if (!_cameraMoved)
+				{
+					_camera2D.Position = new Vector2(_camera2D.Position.x, _camera2D.Position.y + _banner_dimension.y / 2);
+					_cameraMoved = true;
+				}
+			}
+
 			if (_currentBox != null)
 			{
 				if (!_boxFly)
@@ -79,11 +92,13 @@ namespace TowerBuilder
 						var tempScore = (int) GetParent().Get("_score");
 						var rigidBodyBox = _currentBox.GetNode<RigidBody2D>("RigidBody2D");
 
+						var valueOffsetH = _banner_dimension != null ? _banner_dimension.y / 2 : 0;
+
 						if (tempScore > 0)
 						{
 							_camera2D.Position = new Vector2(_camera2D.Position.x,
 								(rigidBodyBox.GlobalTransform.origin.y) -
-								_camera2D.GetViewportRect().Size.y + 200);
+								_camera2D.GetViewportRect().Size.y + 200 + valueOffsetH);
 						}
 
 
