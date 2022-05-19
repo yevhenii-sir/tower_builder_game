@@ -17,6 +17,7 @@ public class Main : Node2D
 	private readonly float _incrementY = Mathf.Deg2Rad(_deg) / 2.5f;
 
 	private Vector2 _topCenterPoint;
+	private bool _isFinal = false;
 
 	private int _score = 0;
 

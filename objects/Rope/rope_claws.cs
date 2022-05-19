@@ -27,6 +27,9 @@ namespace TowerBuilder
 
 		private Vector2 _banner_dimension;
 		private bool _cameraMoved = true;
+		private bool _notMoveCameraBanner = false;
+
+		private Node _mainNode;
 		public override void _Ready()
 		{
 			_leftClaw = GetNode<Sprite>("claw_left");
@@ -38,6 +41,7 @@ namespace TowerBuilder
 				.GetNode<Control>("Interface")
 				.GetNode<NinePatchRect>("TowerHeight")
 				.GetNode<Label>("CounterText");
+			_mainNode = GetParent();
 
 			if (_leftClaw != null && _rightClaw != null && _camera2D != null)
 			{
@@ -52,10 +56,11 @@ namespace TowerBuilder
 		{
 			if (_banner_dimension != null)
 			{
-				if (!_cameraMoved)
+				if (!_cameraMoved && !_notMoveCameraBanner)
 				{
 					_camera2D.Position = new Vector2(_camera2D.Position.x, _camera2D.Position.y + _banner_dimension.y / 2);
 					_cameraMoved = true;
+					_notMoveCameraBanner = true;
 				}
 			}
 
@@ -65,23 +70,26 @@ namespace TowerBuilder
 				{
 					if (Input.IsActionJustPressed("mouse_left_pressed"))
 					{
-						var currentBoxRigidBody2D = _currentBox.GetNode<RigidBody2D>("RigidBody2D");
-						currentBoxRigidBody2D.Mode = RigidBody2D.ModeEnum.Rigid;
-						currentBoxRigidBody2D.GravityScale = 15;
+						if (!(bool) _mainNode.Get("_isFinal"))
+						{
+							var currentBoxRigidBody2D = _currentBox.GetNode<RigidBody2D>("RigidBody2D");
+							currentBoxRigidBody2D.Mode = RigidBody2D.ModeEnum.Rigid;
+							currentBoxRigidBody2D.GravityScale = 15;
 
-						var pos = _currentBox.GlobalPosition;
-						var angle = _currentBox.GlobalRotation;
-						RemoveChild(_currentBox);
-						GetParent().AddChild(_currentBox);
-						_currentBox.Position = pos;
-						_currentBox.Rotation = angle;
-						_currentBox.Scale = new Vector2(1, 1);
-						_boxFly = true;
-						
-						_currentBox.Set("_isStabilization", true);
+							var pos = _currentBox.GlobalPosition;
+							var angle = _currentBox.GlobalRotation;
+							RemoveChild(_currentBox);
+							GetParent().AddChild(_currentBox);
+							_currentBox.Position = pos;
+							_currentBox.Rotation = angle;
+							_currentBox.Scale = new Vector2(1, 1);
+							_boxFly = true;
 
-						ClearAllDelegates();
-						_handlerMoveClaws = MoveClawsUp;
+							_currentBox.Set("_isStabilization", true);
+
+							ClearAllDelegates();
+							_handlerMoveClaws = MoveClawsUp;
+						}
 					}
 					else TrackPositionBox(_currentBox);
 				}
