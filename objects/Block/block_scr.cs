@@ -12,9 +12,33 @@ public class block_scr : RigidBody2D
             if (GlobalRotation > Mathf.Deg2Rad(60) || GlobalRotation < Mathf.Deg2Rad(-60))
             {
                 Node mainNode = GetParent().GetParent();
-                if (!(bool) mainNode.Get("_isFinal"))
+                if (!(bool) mainNode.Get("_isStart"))
                 {
-                    mainNode.Set("_isFinal", true);
+                   /* var rope = mainNode.GetNode<Node2D>("Rope");
+                    
+                    var get_curBox = (Node) rope.Get("_currentBox");
+                    GD.Print(rope, get_curBox, get_curBox.GetPath());
+                    if (get_curBox != null)
+                    {
+                        if (!GetTree().Root.HasNode(get_curBox.GetPath()))
+                        {
+                            rope.Call("Skip");
+                        }
+                    }*/
+                    
+                    mainNode.Set("_isStart", true);
+                    mainNode.Set("_startAnimationPlayBtn", true);
+
+                    foreach (var child in mainNode.GetChildren())
+                    {
+                        Node tmpChild = (Node) child;
+
+                        if (tmpChild.Name.Contains("box_"))
+                            mainNode.RemoveChild(tmpChild);
+                    }
+
+                    mainNode.GetNode<Camera2D>("Camera").Call("GoToStartupPosition");
+                    mainNode.Set("_score", 0);
                 }
             }
         }

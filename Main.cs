@@ -17,7 +17,10 @@ public class Main : Node2D
 	private readonly float _incrementY = Mathf.Deg2Rad(_deg) / 2.5f;
 
 	private Vector2 _topCenterPoint;
-	private bool _isFinal = false;
+	private bool _isStart = true;
+	private bool _startAnimationPlayBtn = true;
+
+	private Area2D _playBtn; 
 
 	private int _score = 0;
 
@@ -34,6 +37,11 @@ public class Main : Node2D
 		
 		Node2D background = GetNode<Node2D>("background");
 		background.Position = new Vector2((_windowSize.x / 2) - 300, background.Position.y);
+
+		_playBtn = GetNode("Camera")
+			.GetNode("CanvasLayer")
+			.GetNode("PlayBtn")
+			.GetNode<Area2D>("Area2D");
 	}
 
 	public override void _Process(float delta)
@@ -48,6 +56,14 @@ public class Main : Node2D
 
 		_tTimeShiftX += _incrementX;
 		_tTimeShiftY += _incrementY;
+
+		if (_startAnimationPlayBtn)
+		{
+			_startAnimationPlayBtn = false;
+			_playBtn.Call("start_animation");
+		}
+		
+		Update();
 	}
 
 	private void FollowRopeToPoint(Vector2 trackingPoint)
@@ -61,6 +77,11 @@ public class Main : Node2D
 		
 		_ropeNode.Position = initialOffset + _topCenterPoint;
 		_ropeNode.Rotation = (trackingPoint - _topCenterPoint).Angle() - Mathf.Deg2Rad(90);
+	}
+	
+	public override void _Draw()
+	{
+		DrawRect(new Rect2(new Vector2(0, 0), GetViewport().GetVisibleRect().Size), Colors.White);
 	}
 }
 

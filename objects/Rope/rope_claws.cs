@@ -70,7 +70,7 @@ namespace TowerBuilder
 				{
 					if (Input.IsActionJustPressed("mouse_left_pressed"))
 					{
-						if (!(bool) _mainNode.Get("_isFinal"))
+						if (!(bool) _mainNode.Get("_isStart"))
 						{
 							var currentBoxRigidBody2D = _currentBox.GetNode<RigidBody2D>("RigidBody2D");
 							currentBoxRigidBody2D.Mode = RigidBody2D.ModeEnum.Rigid;
@@ -138,6 +138,15 @@ namespace TowerBuilder
 				_handlerMoveClaws = MoveClawsDown;
 			}
 #endif
+		}
+
+		private void Skip()
+		{
+			_labelHeightCounter.Text = 0.ToString();
+			_boxFly = false;
+			_currentBox = null;
+						
+			SpawnBox();
 		}
 
 		private void MoveClawsUp()
