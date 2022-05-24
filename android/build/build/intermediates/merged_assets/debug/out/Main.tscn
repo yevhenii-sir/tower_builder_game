@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/background/Fence.png" type="Texture" id=1]
 [ext_resource path="res://assets/background/Ground.png" type="Texture" id=2]
@@ -13,6 +13,11 @@
 [ext_resource path="res://admob-lib/admob.gd" type="Script" id=11]
 [ext_resource path="res://AdsController.gd" type="Script" id=12]
 [ext_resource path="res://objects/Interface Buttons/PlayBtn.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/background/Hills.png" type="Texture" id=14]
+[ext_resource path="res://BacgroundGradient.cs" type="Script" id=15]
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 0.666667, 0.905882, 1, 1, 0.666667, 0.905882, 1, 1 )
 
 [sub_resource type="PhysicsMaterial" id=2]
 friction = 100.0
@@ -26,12 +31,42 @@ script = ExtResource( 7 )
 
 [node name="background" type="Node2D" parent="."]
 
-[node name="build_2" type="Sprite" parent="background"]
-position = Vector2( 294, -532 )
+[node name="CanvasLayer" type="CanvasLayer" parent="background"]
+layer = -20
+
+[node name="BacgroundGradient" type="Line2D" parent="background/CanvasLayer"]
+points = PoolVector2Array( 300, 0, 300, 1024 )
+width = 600.0
+default_color = Color( 0.4, 0.501961, 1, 1 )
+gradient = SubResource( 3 )
+script = ExtResource( 15 )
+
+[node name="HousesParalax" type="ParallaxBackground" parent="background"]
+layer = -10
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="background/HousesParalax"]
+motion_scale = Vector2( 1, 0.65 )
+
+[node name="Hills" type="Sprite" parent="background/HousesParalax/ParallaxLayer3"]
+position = Vector2( -368, -768 )
+scale = Vector2( 1.3, 1.3 )
+texture = ExtResource( 14 )
+centered = false
+
+[node name="ParalaxBuild2" type="ParallaxLayer" parent="background/HousesParalax"]
+motion_scale = Vector2( 1, 0.8 )
+
+[node name="Build_2" type="Sprite" parent="background/HousesParalax/ParalaxBuild2"]
+position = Vector2( 303, -481 )
+scale = Vector2( 1.3, 1.3 )
 texture = ExtResource( 4 )
 
-[node name="build_1" type="Sprite" parent="background"]
+[node name="ParallaxBuild1" type="ParallaxLayer" parent="background/HousesParalax"]
+motion_scale = Vector2( 1, 0.9 )
+
+[node name="Build_1" type="Sprite" parent="background/HousesParalax/ParallaxBuild1"]
 position = Vector2( 297, -59 )
+scale = Vector2( 1.3, 1.3 )
 texture = ExtResource( 6 )
 
 [node name="build_0" type="Sprite" parent="background"]

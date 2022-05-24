@@ -62,8 +62,6 @@ public class Main : Node2D
 			_startAnimationPlayBtn = false;
 			_playBtn.Call("start_animation");
 		}
-		
-		Update();
 	}
 
 	private void FollowRopeToPoint(Vector2 trackingPoint)
@@ -77,11 +75,6 @@ public class Main : Node2D
 		
 		_ropeNode.Position = initialOffset + _topCenterPoint;
 		_ropeNode.Rotation = (trackingPoint - _topCenterPoint).Angle() - Mathf.Deg2Rad(90);
-	}
-	
-	public override void _Draw()
-	{
-		DrawRect(new Rect2(new Vector2(0, 0), GetViewport().GetVisibleRect().Size), Colors.White);
 	}
 }
 
