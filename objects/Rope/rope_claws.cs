@@ -18,6 +18,7 @@ namespace TowerBuilder
 		private MoveClaws _handlerMoveClaws;
 	
 		private readonly PackedScene _boxScene = (PackedScene)GD.Load("res://objects/Block/block.tscn");
+		private readonly AudioStream _boxHit0 = (AudioStream)GD.Load("res://assets/music/HitObject01.wav");	
 		private int _nodeNameCounter = 0;
 		private bool _boxFly = false;
 		private Node2D _currentBox;
@@ -30,6 +31,7 @@ namespace TowerBuilder
 		private bool _notMoveCameraBanner = false;
 
 		private Node _mainNode;
+		private AudioStreamPlayer _effectsPlayer;
 		public override void _Ready()
 		{
 			_leftClaw = GetNode<Sprite>("claw_left");
@@ -42,6 +44,7 @@ namespace TowerBuilder
 				.GetNode<NinePatchRect>("TowerHeight")
 				.GetNode<Label>("CounterText");
 			_mainNode = GetParent();
+			_effectsPlayer = _mainNode.GetNode<AudioStreamPlayer>("soundEffectsPlayer");
 
 			if (_leftClaw != null && _rightClaw != null && _camera2D != null)
 			{
@@ -111,6 +114,11 @@ namespace TowerBuilder
 								_camera2D.GetViewportRect().Size.y + 200 + valueOffsetH);
 						}
 
+						if ((bool) ((Node) _mainNode.Get("_soundBtn")).Get("onSound"))
+						{
+							_effectsPlayer.Stream = _boxHit0;
+							_effectsPlayer.Play();
+						}
 
 						rigidBodyBox.Set("SkipBlock", true);
 						_currentBox.Set("_isStabilization", false);

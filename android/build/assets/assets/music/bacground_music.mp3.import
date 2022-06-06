@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bacground_music.mp3-d22a366e13d13eeee422deee1dff57bd.mp3str"
+
+[deps]
+
+source_file="res://assets/music/bacground_music.mp3"
+dest_files=[ "res://.import/bacground_music.mp3-d22a366e13d13eeee422deee1dff57bd.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
