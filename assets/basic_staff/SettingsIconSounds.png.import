@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GameplayUI_BiggerButtonBackground.png-4f833d7f1fa2b0a07ceebd60bcb6cdd4.stex"
+path="res://.import/SettingsIconSounds.png-b362b5640613e836c02a14b6e7def0c7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://interface/PlayButton/GameplayUI_BiggerButtonBackground.png"
-dest_files=[ "res://.import/GameplayUI_BiggerButtonBackground.png-4f833d7f1fa2b0a07ceebd60bcb6cdd4.stex" ]
+source_file="res://assets/basic_staff/SettingsIconSounds.png"
+dest_files=[ "res://.import/SettingsIconSounds.png-b362b5640613e836c02a14b6e7def0c7.stex" ]
 
 [params]
 

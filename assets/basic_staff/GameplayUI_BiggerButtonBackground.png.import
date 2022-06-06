@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GameplayUI_PlayIcon.png-178d07892dba660649ea894d28d40dd6.stex"
+path="res://.import/GameplayUI_BiggerButtonBackground.png-1256020427cfd7d2272c4bf44d31afc9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://interface/PlayButton/GameplayUI_PlayIcon.png"
-dest_files=[ "res://.import/GameplayUI_PlayIcon.png-178d07892dba660649ea894d28d40dd6.stex" ]
+source_file="res://assets/basic_staff/GameplayUI_BiggerButtonBackground.png"
+dest_files=[ "res://.import/GameplayUI_BiggerButtonBackground.png-1256020427cfd7d2272c4bf44d31afc9.stex" ]
 
 [params]
 
