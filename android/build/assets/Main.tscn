@@ -26,7 +26,7 @@ friction = 100.0
 absorbent = true
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 216, 16 )
+extents = Vector2( 171, 16 )
 
 [node name="Main" type="Node2D" groups=["Persist"]]
 script = ExtResource( 7 )
@@ -71,8 +71,13 @@ position = Vector2( 297, -59 )
 scale = Vector2( 1.3, 1.3 )
 texture = ExtResource( 6 )
 
+[node name="build_1" type="Sprite" parent="background"]
+position = Vector2( 819, 670 )
+scale = Vector2( 1.0609, 1.30595 )
+texture = ExtResource( 5 )
+
 [node name="build_0" type="Sprite" parent="background"]
-position = Vector2( 300, 530.75 )
+position = Vector2( 61, 530.75 )
 scale = Vector2( 1.03, 1.14278 )
 texture = ExtResource( 5 )
 
@@ -94,6 +99,7 @@ position = Vector2( 300, 969 )
 physics_material_override = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="foundament"]
+scale = Vector2( 0.787037, 1 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="foundament"]
