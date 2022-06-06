@@ -26,13 +26,13 @@ public class block_scr : RigidBody2D
                         }
                     }*/
 
-                   var tempScr = (int) mainNode.Get("_score");
-                   if (tempScr > (float)mainNode.Get("_maxScore"))
+                    var tempScr = (int) mainNode.Get("_score");
+                    if (tempScr > (float)mainNode.Get("_maxScore"))
                        mainNode.Set("_maxScore", tempScr);
 
-                   SaveGame(mainNode);
+                    SaveGame(mainNode);
                    
-                   mainNode.Set("_isStart", true);
+                    mainNode.Set("_isStart", true);
                     mainNode.Set("_startAnimationPlayBtn", true);
 
                     foreach (var child in mainNode.GetChildren())

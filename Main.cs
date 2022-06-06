@@ -23,6 +23,8 @@ public class Main : Node2D
 
 	private Area2D _playBtn;
 	private Area2D _soundBtn;
+	private Area2D _infoBtn;
+	
 	public bool nowPressedPlayBtn = false;
 	public float _maxScore = 0;
 	private Label _labelMaxCounter;
@@ -53,6 +55,11 @@ public class Main : Node2D
 			.GetNode("SoundBtn")
 			.GetNode<Area2D>("Area2D");
 		
+		_infoBtn = GetNode("Camera")
+			.GetNode("CanvasLayer")
+			.GetNode("InfoButton")
+			.GetNode<Area2D>("Area2D");
+		
 		_labelMaxCounter = GetNode("Camera")
 			.GetNode("CanvasLayer")
 			.GetNode("Interface")
@@ -78,6 +85,7 @@ public class Main : Node2D
 			_startAnimationPlayBtn = false;
 			_playBtn.Call("start_animation");
 			_soundBtn.Call("start_animation");
+			_infoBtn.Call("start_animation");
 
 			LoadGame();
 			_soundBtn.Call("start_play_music");

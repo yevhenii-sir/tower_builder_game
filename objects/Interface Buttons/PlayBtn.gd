@@ -4,10 +4,12 @@ var animation : AnimationPlayer
 var main : Node2D
 var isPressed = false
 var soundBtn : Area2D
+var infoBtn : Area2D
 
 func _ready():
 	animation = get_node("AnimationPlayer");
 	soundBtn = get_parent().get_parent().get_node("SoundBtn").get_node("Area2D")
+	infoBtn = get_parent().get_parent().get_node("InfoButton").get_node("Area2D")
 	main = get_parent().get_parent().get_parent().get_parent();
 	get_parent().position.x = get_viewport_rect().size.x / 2
 
@@ -21,4 +23,5 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 			main.set("_isStart", false)
 			main.set("nowPressedPlayBtn", true)
 			soundBtn.call("start_back_animation");
+			infoBtn.call("start_back_animation");
 			
