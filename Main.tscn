@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/background/Fence.png" type="Texture" id=1]
 [ext_resource path="res://assets/background/Ground.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://objects/Interface Buttons/PlayBtn.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/background/Hills.png" type="Texture" id=14]
 [ext_resource path="res://BacgroundGradient.cs" type="Script" id=15]
+[ext_resource path="res://interface/SndButton/SoundBtn.tscn" type="PackedScene" id=16]
 
 [sub_resource type="Gradient" id=3]
 colors = PoolColorArray( 0.666667, 0.905882, 1, 1, 0.666667, 0.905882, 1, 1 )
@@ -106,6 +107,9 @@ mouse_filter = 2
 
 [node name="PlayBtn" parent="Camera/CanvasLayer" instance=ExtResource( 13 )]
 position = Vector2( 298, 842 )
+
+[node name="SoundBtn" parent="Camera/CanvasLayer" instance=ExtResource( 16 )]
+position = Vector2( 66, 71 )
 
 [node name="Rope" parent="." instance=ExtResource( 9 )]
 

@@ -21,6 +21,7 @@ public class Main : Node2D
 	private bool _startAnimationPlayBtn = true;
 
 	private Area2D _playBtn;
+	private Area2D _soundBtn;
 	public bool nowPressedPlayBtn = false;
 
 	private int _score = 0;
@@ -43,6 +44,11 @@ public class Main : Node2D
 			.GetNode("CanvasLayer")
 			.GetNode("PlayBtn")
 			.GetNode<Area2D>("Area2D");
+		
+		_soundBtn = GetNode("Camera")
+			.GetNode("CanvasLayer")
+			.GetNode("SoundBtn")
+			.GetNode<Area2D>("Area2D");
 	}
 
 	public override void _Process(float delta)
@@ -62,6 +68,8 @@ public class Main : Node2D
 		{
 			_startAnimationPlayBtn = false;
 			_playBtn.Call("start_animation");
+			_soundBtn.Call("start_animation");
+			GD.Print("anim_start!!!");
 		}
 	}
 

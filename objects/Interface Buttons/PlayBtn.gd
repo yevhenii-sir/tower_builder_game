@@ -2,10 +2,12 @@ extends Area2D
 
 var animation : AnimationPlayer
 var main : Node2D
-var isPressed = false;
+var isPressed = false
+var soundBtn : Area2D
 
 func _ready():
 	animation = get_node("AnimationPlayer");
+	soundBtn = get_parent().get_parent().get_node("SoundBtn").get_node("Area2D")
 	main = get_parent().get_parent().get_parent().get_parent();
 
 func start_animation():
@@ -17,3 +19,5 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 			animation.play_backwards("Flow")
 			main.set("_isStart", false)
 			main.set("nowPressedPlayBtn", true)
+			soundBtn.call("start_back_animation");
+			
