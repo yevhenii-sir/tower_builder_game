@@ -109,7 +109,7 @@ mouse_filter = 2
 position = Vector2( 298, 842 )
 
 [node name="SoundBtn" parent="Camera/CanvasLayer" instance=ExtResource( 16 )]
-position = Vector2( 66, 71 )
+position = Vector2( 83, 83 )
 
 [node name="Rope" parent="." instance=ExtResource( 9 )]
 
