@@ -25,8 +25,14 @@ public class block_scr : RigidBody2D
                             rope.Call("Skip");
                         }
                     }*/
-                    
-                    mainNode.Set("_isStart", true);
+
+                   var tempScr = (int) mainNode.Get("_score");
+                   if (tempScr > (float)mainNode.Get("_maxScore"))
+                       mainNode.Set("_maxScore", tempScr);
+
+                   SaveGame(mainNode);
+                   
+                   mainNode.Set("_isStart", true);
                     mainNode.Set("_startAnimationPlayBtn", true);
 
                     foreach (var child in mainNode.GetChildren())
@@ -43,5 +49,24 @@ public class block_scr : RigidBody2D
                 }
             }
         }
+    }
+
+    public void SaveGame(Node mainNode)
+    {
+        var saveGame = new File();
+        saveGame.Open("user://savegame.save", File.ModeFlags.Write);
+
+        if (!mainNode.HasMethod("Save"))
+        {
+            GD.Print("Skip Save");
+            return;
+        }
+        
+        var nodeData = mainNode.Call("Save");
+        saveGame.StoreLine(JSON.Print(nodeData));
+
+        saveGame.Close();
+        
+        GD.Print("Saved!");
     }
 }

@@ -43,6 +43,7 @@ namespace TowerBuilder
 				.GetNode<Control>("Interface")
 				.GetNode<NinePatchRect>("TowerHeight")
 				.GetNode<Label>("CounterText");
+			
 			_mainNode = GetParent();
 			_effectsPlayer = _mainNode.GetNode<AudioStreamPlayer>("soundEffectsPlayer");
 

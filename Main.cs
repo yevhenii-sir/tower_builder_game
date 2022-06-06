@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public class Main : Node2D
@@ -23,6 +24,8 @@ public class Main : Node2D
 	private Area2D _playBtn;
 	private Area2D _soundBtn;
 	public bool nowPressedPlayBtn = false;
+	public float _maxScore = 0;
+	private Label _labelMaxCounter;
 
 	private int _score = 0;
 
@@ -49,6 +52,12 @@ public class Main : Node2D
 			.GetNode("CanvasLayer")
 			.GetNode("SoundBtn")
 			.GetNode<Area2D>("Area2D");
+		
+		_labelMaxCounter = GetNode("Camera")
+			.GetNode("CanvasLayer")
+			.GetNode("Interface")
+			.GetNode("TowerHeight")
+			.GetNode<Label>("MaxPop");
 	}
 
 	public override void _Process(float delta)
@@ -69,8 +78,57 @@ public class Main : Node2D
 			_startAnimationPlayBtn = false;
 			_playBtn.Call("start_animation");
 			_soundBtn.Call("start_animation");
+
+			LoadGame();
+			_soundBtn.Call("start_play_music");
+			_labelMaxCounter.Text = "MAX: " + _maxScore.ToString();
 			GD.Print("anim_start!!!");
 		}
+	}
+	
+	public Godot.Collections.Dictionary<string, object> Save()
+	{
+		Node mainNode = GetParent().GetParent();
+        
+		return new Godot.Collections.Dictionary<string, object>()
+		{
+			{ "MaxScore", _maxScore},
+			{ "SoundOn", (bool)_soundBtn.Get("onSound")}
+		};
+	}
+	
+	public void LoadGame()
+	{
+		var saveGame = new File();
+		if (!saveGame.FileExists("user://savegame.save"))
+			return;
+		
+		saveGame.Open("user://savegame.save", File.ModeFlags.Read);
+
+		while (saveGame.GetPosition() < saveGame.GetLen())
+		{
+			var nodeData = new Godot.Collections.Dictionary<string, object>((Godot.Collections.Dictionary)JSON.Parse(saveGame.GetLine()).Result);
+			foreach (KeyValuePair<string, object> entry in nodeData)
+			{
+				string key = entry.Key.ToString();
+
+				switch (key)
+				{
+					case "MaxScore":
+						_maxScore = (float)entry.Value;
+						break;
+					
+					case "SoundOn":
+						_soundBtn.Set("onSound", (bool)entry.Value);
+						_soundBtn.Call("refresh_color_btn");
+						break;
+				}
+				
+				GD.Print(key, ": ", entry.Value);
+			}
+		}
+
+		saveGame.Close();
 	}
 
 	private void FollowRopeToPoint(Vector2 trackingPoint)

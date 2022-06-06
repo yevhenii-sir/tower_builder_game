@@ -9,6 +9,7 @@ func _ready():
 	animation = get_node("AnimationPlayer");
 	soundBtn = get_parent().get_parent().get_node("SoundBtn").get_node("Area2D")
 	main = get_parent().get_parent().get_parent().get_parent();
+	get_parent().position.x = get_viewport_rect().size.x / 2
 
 func start_animation():
 	animation.play("Flow")
