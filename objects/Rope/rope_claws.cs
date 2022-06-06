@@ -70,7 +70,7 @@ namespace TowerBuilder
 				{
 					if (Input.IsActionJustPressed("mouse_left_pressed"))
 					{
-						if (!(bool) _mainNode.Get("_isStart"))
+						if (!(bool) _mainNode.Get("_isStart") && !(bool)_mainNode.Get("nowPressedPlayBtn"))
 						{
 							var currentBoxRigidBody2D = _currentBox.GetNode<RigidBody2D>("RigidBody2D");
 							currentBoxRigidBody2D.Mode = RigidBody2D.ModeEnum.Rigid;
@@ -90,6 +90,8 @@ namespace TowerBuilder
 							ClearAllDelegates();
 							_handlerMoveClaws = MoveClawsUp;
 						}
+
+						_mainNode.Set("nowPressedPlayBtn", false);
 					}
 					else TrackPositionBox(_currentBox);
 				}
@@ -114,7 +116,8 @@ namespace TowerBuilder
 						_currentBox.Set("_isStabilization", false);
 						GetParent().Set("_score", tempScore + 1);
 
-						_labelHeightCounter.Text = (tempScore + 1).ToString();
+						//_labelHeightCounter.Text = (tempScore + 1).ToString();
+						SetScoreLabel(false, tempScore + 1);
 
 						rigidBodyBox.ContactMonitor = false;
 						_boxFly = false;
@@ -138,6 +141,16 @@ namespace TowerBuilder
 				_handlerMoveClaws = MoveClawsDown;
 			}
 #endif
+		}
+
+		public void SetScoreLabel(bool getScoreInMain = true, int score = 0)
+		{
+			if (getScoreInMain)
+			{
+				score = (int)GetParent().Get("_score");
+			}
+
+			_labelHeightCounter.Text = score.ToString();
 		}
 
 		private void Skip()

@@ -20,7 +20,8 @@ public class Main : Node2D
 	private bool _isStart = true;
 	private bool _startAnimationPlayBtn = true;
 
-	private Area2D _playBtn; 
+	private Area2D _playBtn;
+	public bool nowPressedPlayBtn = false;
 
 	private int _score = 0;
 

@@ -39,6 +39,7 @@ public class block_scr : RigidBody2D
 
                     mainNode.GetNode<Camera2D>("Camera").Call("GoToStartupPosition");
                     mainNode.Set("_score", 0);
+                    mainNode.GetNode("Rope").Call("SetScoreLabel", false, 0);
                 }
             }
         }

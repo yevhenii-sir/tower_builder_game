@@ -5,10 +5,6 @@ onready var Admob : AdMob = get_parent().get_node("AdMob")
 func _ready():
 	Admob.load_banner()
 
-#func _process(delta):
-#	pass
-
-
 func _on_AdMob_banner_loaded():
 	_set_value_offset_camera()
 	Admob.show_banner();
