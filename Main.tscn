@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/background/Fence.png" type="Texture" id=1]
 [ext_resource path="res://assets/background/Ground.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/background/Hills.png" type="Texture" id=14]
 [ext_resource path="res://BacgroundGradient.cs" type="Script" id=15]
 [ext_resource path="res://interface/SndButton/SoundBtn.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/basic_staff/bacground_music.mp3" type="AudioStream" id=17]
 
 [sub_resource type="Gradient" id=3]
 colors = PoolColorArray( 0.666667, 0.905882, 1, 1, 0.666667, 0.905882, 1, 1 )
@@ -122,5 +123,11 @@ rewarded_id = "ca-app-pub-9890823123050904/1239548951"
 
 [node name="AdsController" type="Node2D" parent="."]
 script = ExtResource( 12 )
+
+[node name="backgroundAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = -6.0
+pitch_scale = 0.95
+autoplay = true
 
 [connection signal="banner_loaded" from="AdMob" to="AdsController" method="_on_AdMob_banner_loaded"]

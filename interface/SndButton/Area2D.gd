@@ -22,9 +22,9 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 			animation.play("pressAnim");
 			if onSound:
 				$background.modulate = Color.lightseagreen;
+				main.get_node("backgroundAudioPlayer").playing = false;
 				onSound = false
 			else:
 				$background.modulate = Color("f71b1b");
+				main.get_node("backgroundAudioPlayer").playing = true;
 				onSound = true
-			#main.set("_isStart", false)
-			#main.set("nowPressedPlayBtn", true)
