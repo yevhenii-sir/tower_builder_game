@@ -87,6 +87,12 @@ public class Main : Node2D
 			_soundBtn.Call("start_animation");
 			_infoBtn.Call("start_animation");
 
+			if ((int) _ropeNode.Get("_currentStateClaws") == 1)
+			{
+				_ropeNode.Call("SpawnBox");
+				_ropeNode.Set("_boxFly", false);
+			}
+
 			LoadGame();
 			_soundBtn.Call("start_play_music");
 			_labelMaxCounter.Text = "MAX: " + _maxScore.ToString();

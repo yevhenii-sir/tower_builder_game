@@ -30,6 +30,8 @@ namespace TowerBuilder
 		private bool _cameraMoved = true;
 		private bool _notMoveCameraBanner = false;
 
+		private int _currentStateClaws = 0;
+
 		private Node _mainNode;
 		private AudioStreamPlayer _effectsPlayer;
 		public override void _Ready()
@@ -138,7 +140,7 @@ namespace TowerBuilder
 			}
 
 			_handlerMoveClaws?.Invoke();
-		
+
 #if DEBUG
 			if (Input.IsActionJustPressed("claws_up"))
 			{
@@ -176,6 +178,8 @@ namespace TowerBuilder
 			_leftClaw.Rotation = Mathf.LerpAngle(_leftClaw.Rotation, _finishRotationRad, _increaseValAngle);
 			_rightClaw.Rotation = Mathf.LerpAngle(_rightClaw.Rotation, -_finishRotationRad, _increaseValAngle);
 
+			_currentStateClaws = 1;
+
 			if (Math.Abs(_leftClaw.Rotation - _finishRotationRad) < 0.02) _handlerMoveClaws -= MoveClawsUp;
 		}
 	
@@ -183,6 +187,8 @@ namespace TowerBuilder
 		{
 			_leftClaw.Rotation = Mathf.LerpAngle(_leftClaw.Rotation, _startRotationRad, _increaseValAngle);
 			_rightClaw.Rotation = Mathf.LerpAngle(_rightClaw.Rotation, _startRotationRad, _increaseValAngle);
+
+			_currentStateClaws = -1;
 		
 			if (Math.Abs(_leftClaw.Rotation - _startRotationRad) < 0.02) _handlerMoveClaws -= MoveClawsDown;
 		}

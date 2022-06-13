@@ -8,7 +8,6 @@ var onSound = true;
 func _ready():
 	animation = get_node("AnimationPlayer");
 	main = get_parent().get_parent().get_parent().get_parent();
-	#animation.play("FadeUp")
 
 func start_animation():
 	animation.play("FadeUp")

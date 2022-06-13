@@ -14,18 +14,6 @@ public class block_scr : RigidBody2D
                 Node mainNode = GetParent().GetParent();
                 if (!(bool) mainNode.Get("_isStart"))
                 {
-                   /* var rope = mainNode.GetNode<Node2D>("Rope");
-                    
-                    var get_curBox = (Node) rope.Get("_currentBox");
-                    GD.Print(rope, get_curBox, get_curBox.GetPath());
-                    if (get_curBox != null)
-                    {
-                        if (!GetTree().Root.HasNode(get_curBox.GetPath()))
-                        {
-                            rope.Call("Skip");
-                        }
-                    }*/
-
                     var tempScr = (int) mainNode.Get("_score");
                     if (tempScr > (float)mainNode.Get("_maxScore"))
                        mainNode.Set("_maxScore", tempScr);
